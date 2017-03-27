@@ -175,9 +175,9 @@ public class A_Lambdas {
      * Write a lambda expression that appends the
      * string "abc" to the given StringBuilder.
      */
-    @Test @Ignore
+    @Test 
     public void c_consumer1() {
-        Consumer<StringBuilder> cons = null; // TODO
+        Consumer<StringBuilder> cons = (x) -> x.append("abc"); // TODO
 
         StringBuilder sb = new StringBuilder("xyz");
         cons.accept(sb);
@@ -187,9 +187,9 @@ public class A_Lambdas {
     /**
      * Write a lambda expression that clears the given list.
      */
-    @Test @Ignore
+    @Test 
     public void c_consumer2() {
-        Consumer<List<String>> cons = null; // TODO
+        Consumer<List<String>> cons = (list) -> list.clear(); // TODO
 
         List<String> list = new ArrayList<>(Arrays.asList("a", "b", "c"));
         cons.accept(list);
@@ -199,9 +199,9 @@ public class A_Lambdas {
     /**
      * Write an unbound method reference that clears the given list.
      */
-    @Test @Ignore
+    @Test 
     public void c_consumer3() {
-        Consumer<List<String>> cons = null; // TODO
+        Consumer<List<String>> cons = List::clear; // TODO
 
         List<String> list = new ArrayList<>(Arrays.asList("a", "b", "c"));
         cons.accept(list);
@@ -212,12 +212,12 @@ public class A_Lambdas {
      * Given two consumers, create a consumer that passes the String to the
      * first consumer, then to the second.
      */
-    @Test @Ignore
+    @Test
     public void c_consumer4() {
         Consumer<List<String>> c1 = list -> list.add("first");
         Consumer<List<String>> c2 = list -> list.add("second");
 
-        Consumer<List<String>> consumer = null; // TODO
+        Consumer<List<String>> consumer = c1.andThen(c2); // TODO
 
         List<String> list = new ArrayList<>(Arrays.asList("a", "b", "c"));
         consumer.accept(list);
@@ -232,9 +232,9 @@ public class A_Lambdas {
      * Write a lambda expression that returns a new StringBuilder
      * containing the string "abc".
      */
-    @Test @Ignore
+    @Test
     public void d_supplier1() {
-        Supplier<StringBuilder> sup = null; // TODO
+        Supplier<StringBuilder> sup = () -> new StringBuilder("abc"); // TODO
 
         assertEquals("abc", sup.get().toString());
     }
@@ -242,9 +242,9 @@ public class A_Lambdas {
     /**
      * Write a lambda expression that returns a new, empty StringBuilder.
      */
-    @Test @Ignore
+    @Test 
     public void d_supplier2() {
-        Supplier<StringBuilder> sup = null; // TODO
+        Supplier<StringBuilder> sup = StringBuilder::new; // TODO
 
         assertEquals("", sup.get().toString());
     }
@@ -252,9 +252,9 @@ public class A_Lambdas {
     /**
      * Write an unbound method reference that returns a new, empty StringBuilder.
      */
-    @Test @Ignore
+    @Test 
     public void d_supplier3() {
-        Supplier<StringBuilder> sup = null; // TODO
+        Supplier<StringBuilder> sup = StringBuilder::new; // TODO
 
         assertEquals("", sup.get().toString());
     }
@@ -264,9 +264,9 @@ public class A_Lambdas {
      * of concatenating the first with the second, followed by the
      * first again.
      */
-    @Test @Ignore
+    @Test 
     public void e_bifunction1() {
-        BiFunction<String, String, String> bifunc = null; // TODO
+        BiFunction<String, String, String> bifunc = (x,y) -> x.concat(y).concat(x); // TODO
 
         assertEquals("FirstSecondFirst", bifunc.apply("First", "Second"));
     }
@@ -276,9 +276,9 @@ public class A_Lambdas {
      * the first occurrence of the second string within the first string,
      * or -1 if the second string doesn't occur within the first string.
      */
-    @Test @Ignore
+    @Test 
     public void e_bifunction2() {
-        BiFunction<String, String, Integer> bifunc = null; // TODO
+        BiFunction<String, String, Integer> bifunc = (x,y) -> x.contains(y) ? x.indexOf(y) : -1; // TODO
 
         assertEquals(3, bifunc.apply("abcdefghi", "def").intValue());
         assertEquals(-1, bifunc.apply("abcdefghi", "xyz").intValue());
@@ -299,7 +299,7 @@ public class A_Lambdas {
      */
     @Test @Ignore
     public void e_bifunction3() {
-        BiFunction<String, String, Integer> bifunc = null; // TODO
+        BiFunction<String, String, Integer> bifunc = null ; // TODO
 
         assertEquals(3, bifunc.apply("abcdefghij", "def").intValue());
         assertEquals(-1, bifunc.apply("abcdefghij", "xyz").intValue());
@@ -322,12 +322,12 @@ public class A_Lambdas {
      * Write a lambda expression that appends the 'suffix'
      * variable (a String) to the sb variable (a StringBuilder).
      */
-    @Test @Ignore
+    @Test 
     public void f_runnable1() {
         StringBuilder sb = new StringBuilder("abc");
         String suffix = "xyz";
 
-        Runnable r = null; // TODO
+        Runnable r = () -> sb.append(suffix); // TODO
 
         r.run();
         r.run();
@@ -341,9 +341,9 @@ public class A_Lambdas {
      * "abcdefghij", or that returns -1 if the string argument
      * doesn't occur.
      */
-    @Test @Ignore
+    @Test 
     public void g_boundMethodRef1() {
-        Function<String, Integer> func = null; // TODO
+        Function<String, Integer> func = x -> "abcdefghij".contains(x) ? "abcdefghij".indexOf(x) : -1 ; // TODO
 
         assertEquals(2, func.apply("cde").intValue());
         assertEquals(4, func.apply("efg").intValue());
