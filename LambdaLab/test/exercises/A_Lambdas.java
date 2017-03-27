@@ -30,9 +30,9 @@ public class A_Lambdas {
      * Write a lambda expression that is a predicate
      * that tests whether a string is longer than four characters.
      */
-    @Test @Ignore
+    @Test
     public void a_predicate1() {
-        Predicate<String> pred = null; // TODO
+        Predicate<String> pred = (x) -> x.length()> 4; // TODO
 
         assertTrue(pred.test("abcde"));
         assertFalse(pred.test("abcd"));
@@ -42,9 +42,9 @@ public class A_Lambdas {
      * Write a lambda expression that is a predicate
      * that tests whether a string is empty.
      */
-    @Test @Ignore
+    @Test
     public void a_predicate2() {
-        Predicate<String> pred = null; // TODO
+        Predicate<String> pred = String::isEmpty; // TODO
 
         assertTrue(pred.test(""));
         assertFalse(pred.test("a"));
@@ -58,9 +58,9 @@ public class A_Lambdas {
      *
      *     classname::methodname
      */
-    @Test @Ignore
+    @Test
     public void a_predicate3() {
-        Predicate<String> pred = null; // TODO
+        Predicate<String> pred = String::isEmpty; // TODO
 
         assertTrue(pred.test(""));
         assertFalse(pred.test("a"));
@@ -77,12 +77,12 @@ public class A_Lambdas {
      * Create a predicate that returns true if both predicates
      * startsWithJ and lengthIs7 hold.
      */
-    @Test @Ignore
+    @Test
     public void a_predicate4() {
         Predicate<String> startsWithJ = s -> s.startsWith("J");
         Predicate<String> lengthIs7 = s -> s.length() == 7;
 
-        Predicate<String> startsWithJAndLengthIs7 = null; // TODO
+        Predicate<String> startsWithJAndLengthIs7 = startsWithJ.and(lengthIs7); // TODO
 
         assertFalse(startsWithJAndLengthIs7.test("Hello"));
         assertFalse(startsWithJAndLengthIs7.test("HelloJ1"));
@@ -98,13 +98,13 @@ public class A_Lambdas {
      * Create a predicate that is true if the length of the provided string
      * is 9 or the provided string equals ERROR.
      */
-    @Test @Ignore
+    @Test 
     public void a_predicate5() {
         Predicate<String> lengthIs9 = s -> s.length() == 9;
         Predicate<String> equalsError = "ERROR"::equals;
         // Note: this could also be: Predicate.isEqual("ERROR")
 
-        Predicate<String> lengthIs9orError = null; // TODO
+        Predicate<String> lengthIs9orError = lengthIs9.or(equalsError); // TODO
 
         assertFalse(lengthIs9orError.test("Hello"));
         assertTrue(lengthIs9orError.test("Hello J1!"));
@@ -120,9 +120,9 @@ public class A_Lambdas {
      * Write a lambda expression that wraps the given
      * string in parentheses.
      */
-    @Test @Ignore
+    @Test
     public void b_function1() {
-        Function<String, String> func = null; // TODO
+        Function<String, String> func = x -> "(" + x + ")"; // TODO
 
         assertEquals("(abc)", func.apply("abc"));
     }
@@ -131,9 +131,9 @@ public class A_Lambdas {
      * Write a lambda expression that converts the
      * given string to upper case.
      */
-    @Test @Ignore
+    @Test 
     public void b_function2() {
-        Function<String, String> func = null; // TODO
+        Function<String, String> func = (x) -> x.toUpperCase(); // TODO
 
         assertEquals("ABC", func.apply("abc"));
     }
@@ -142,9 +142,9 @@ public class A_Lambdas {
      * Write an unbound method reference that converts the
      * given string to upper case.
      */
-    @Test @Ignore
+    @Test 
     public void b_function3() {
-        Function<String, String> func = null; // TODO
+        Function<String, String> func = String::toUpperCase; // TODO
 
         assertEquals("ABC", func.apply("abc"));
     }
@@ -155,12 +155,12 @@ public class A_Lambdas {
      * create a single function converts nulls and then gets the
      * string's length.
      */
-    @Test @Ignore
+    @Test 
     public void b_function4() {
         Function<String, String> unNullify = s -> s == null ? "" : s;
         Function<String, Integer> length = String::length;
 
-        Function<String, Integer> lengthBis = null; // TODO
+        Function<String, Integer> lengthBis = unNullify.andThen(length); // TODO
 
         assertEquals((Integer)14, lengthBis.apply("Hello JavaOne!"));
         assertEquals((Integer)0, lengthBis.apply(""));
