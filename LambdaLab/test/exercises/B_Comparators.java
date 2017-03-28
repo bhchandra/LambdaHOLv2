@@ -13,11 +13,10 @@ import static org.junit.Assert.assertTrue;
 import model.Person;
 
 /**
- * Exercises to create comparators using lambda expressions
- * and using the Comparator combinators. Some of the exercises
- * use a Person class, which is a simple POJO containing a last
- * name, first name, and age, with the obvious constructors and
- * getters.
+ * Exercises to create comparators using lambda expressions and using the
+ * Comparator combinators. Some of the exercises use a Person class, which is a
+ * simple POJO containing a last name, first name, and age, with the obvious
+ * constructors and getters.
  */
 public class B_Comparators {
 
@@ -28,11 +27,12 @@ public class B_Comparators {
     final Person jermaine = new Person("Jermaine", "Jackson", 61);
 
     /**
-     * Write a Comparator that compares instances of Person using their lastName.
+     * Write a Comparator that compares instances of Person using their
+     * lastName.
      */
-    @Test @Ignore
+    @Test
     public void comparator1() {
-        Comparator<Person> comparebyLastName = null; // TODO
+        Comparator<Person> comparebyLastName = (p1, p2) -> p1.getLastName().compareTo(p2.getLastName());
 
         assertTrue(comparebyLastName.compare(michael, rod) < 0);
         assertTrue(comparebyLastName.compare(paul, paul) == 0);
@@ -49,9 +49,16 @@ public class B_Comparators {
      * Write a Comparator that compares instances of Person using their
      * lastName, and if their last name is the same, uses their first name.
      */
-    @Test @Ignore
+    @Test
     public void comparator2() {
-        Comparator<Person> comparebyLastNameThenFirstName = null; // TODO
+        Comparator<Person> comparebyLastNameThenFirstName = (p1, p2) -> {
+            final int x = p1.getLastName().compareTo(p2.getLastName());
+            if (x == 0) {
+                return p1.getFirstName().compareTo(p2.getFirstName());
+            } else {
+                return x;
+            }
+        };
 
         assertTrue(comparebyLastNameThenFirstName.compare(michael, rod) < 0);
         assertTrue(comparebyLastNameThenFirstName.compare(paul, paul) == 0);
@@ -66,9 +73,19 @@ public class B_Comparators {
      * Write a Comparator that compares the people in the reversed order than
      * the one you wrote in the comparator2() exercise.
      */
-    @Test @Ignore
+    @Test
     public void comparator3() {
-        Comparator<Person> comparebyLastNameThenFirstNameReversed = null; // TODO
+
+        Comparator<Person> comparebyLastNameThenFirstName = (p1, p2) -> {
+            final int x = p1.getLastName().compareTo(p2.getLastName());
+            if (x == 0) {
+                return x;
+            } else {
+                return p1.getFirstName().compareTo(p2.getFirstName());
+            }
+        };
+        
+        Comparator<Person> comparebyLastNameThenFirstNameReversed = comparebyLastNameThenFirstName.reversed(); // TODO
 
         assertFalse(comparebyLastNameThenFirstNameReversed.compare(michael, rod) < 0);
         assertTrue(comparebyLastNameThenFirstNameReversed.compare(paul, paul) == 0);
@@ -84,9 +101,18 @@ public class B_Comparators {
      * one you wrote in comparator2(), but that supports null values. The null
      * values should be considered greater than any non-null values.
      */
-    @Test @Ignore
+    @Test
     public void comparator4() {
-        Comparator<Person> comparebyLastNameThenFirstNameWithNull = null; // TODO
+        
+        Comparator<Person> comparebyLastNameThenFirstNameWithNull = Comparator.nullsLast(
+                (p1, p2) -> {
+                    final int x = p1.getLastName().compareTo(p2.getLastName());
+                    if (x == 0) {
+                        return p1.getFirstName().compareTo(p2.getFirstName());
+                    } else {
+                        return x;
+                    }
+                });
 
         assertTrue(comparebyLastNameThenFirstNameWithNull.compare(michael, rod) < 0);
         assertTrue(comparebyLastNameThenFirstNameWithNull.compare(paul, paul) == 0);
@@ -100,10 +126,11 @@ public class B_Comparators {
     // </editor-fold>
 
     /**
-     * Write a Comparator that compares two people by age.
-     * Try to write the comparator so as to avoid boxing of primitives.
+     * Write a Comparator that compares two people by age. Try to write the
+     * comparator so as to avoid boxing of primitives.
      */
-    @Test @Ignore
+    @Test
+    @Ignore
     public void comparator5() {
         Comparator<Person> comparebyAge = null; // TODO
 
@@ -118,13 +145,14 @@ public class B_Comparators {
     // </editor-fold>
 
     /**
-     * Write a lambda expression that compares two int values and returns an
-     * int result that is less than, equal to, or greater than zero, like
-     * a comparator. Watch out for overflow. The Comparator interface takes
-     * two objects, but in this case we are comparing int primitives, so the
+     * Write a lambda expression that compares two int values and returns an int
+     * result that is less than, equal to, or greater than zero, like a
+     * comparator. Watch out for overflow. The Comparator interface takes two
+     * objects, but in this case we are comparing int primitives, so the
      * functional interface we use is IntBinaryOperator.
      */
-    @Test @Ignore
+    @Test
+    @Ignore
     public void comparator6() {
         IntBinaryOperator intCompare = null; // TODO
 
@@ -140,11 +168,12 @@ public class B_Comparators {
     // </editor-fold>
 
     /**
-     * Write a method reference that compares two int values and returns an
-     * int result that is less than, equal to, or greater than zero, like
-     * a comparator.
+     * Write a method reference that compares two int values and returns an int
+     * result that is less than, equal to, or greater than zero, like a
+     * comparator.
      */
-    @Test @Ignore
+    @Test
+    @Ignore
     public void comparator7() {
         IntBinaryOperator intCompare = null; // TODO
 
@@ -160,18 +189,20 @@ public class B_Comparators {
     // </editor-fold>
 
     interface DoubleToIntBiFunction {
+
         int applyAsInt(double a, double b);
     }
 
     /**
      * Write a method reference that compares two double values and returns an
-     * int result that is less than, equal to, or greater than zero, like
-     * a comparator. There functional interface that takes two doubles and returns
-     * an int, so we define one here. Comparing double values introduces
-     * special cases such NaN. Consider all NaN values to be equal to each other
-     * and greater than any non-NaN value.
+     * int result that is less than, equal to, or greater than zero, like a
+     * comparator. There functional interface that takes two doubles and returns
+     * an int, so we define one here. Comparing double values introduces special
+     * cases such NaN. Consider all NaN values to be equal to each other and
+     * greater than any non-NaN value.
      */
-    @Test @Ignore
+    @Test
+    @Ignore
     public void comparator8() {
         DoubleToIntBiFunction doubleCompare = null; // TODO
 
